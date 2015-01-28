@@ -15,13 +15,12 @@ import java.util.Random;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlleyFragment extends Fragment {
-    Button mButtonGoLeft;
-    Button mButtonGoRight;
-    Button mButtonContinue;
+public class RoomFragment extends Fragment {
+    Button mButtonDoor1;
+    Button mButtonDoor2;
 
 
-    public AlleyFragment() {
+    public RoomFragment() {
         // Required empty public constructor
     }
 
@@ -30,18 +29,16 @@ public class AlleyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alley, container, false);
+        return inflater.inflate(R.layout.fragment_room, container, false);
     }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         prepareButtons();
     }
     private void prepareButtons() {
-        mButtonGoLeft=(Button) getView().findViewById(R.id.button_go_left);
-        mButtonContinue=(Button) getView().findViewById(R.id.button_continue);
-        mButtonGoRight=(Button) getView().findViewById(R.id.button_go_right);
+        mButtonDoor1= (Button) getView().findViewById(R.id.button_door1);
+        mButtonDoor2= (Button) getView().findViewById(R.id.button_door2);
         View.OnClickListener buttonsListener= new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +49,9 @@ public class AlleyFragment extends Fragment {
                 startActivity(futureDestination);
             }
         };
-        mButtonGoLeft.setOnClickListener(buttonsListener);
-        mButtonContinue.setOnClickListener(buttonsListener);
-        mButtonGoRight.setOnClickListener(buttonsListener);
+        mButtonDoor1.setOnClickListener(buttonsListener);
+        mButtonDoor2.setOnClickListener(buttonsListener);
     }
+
+
 }
