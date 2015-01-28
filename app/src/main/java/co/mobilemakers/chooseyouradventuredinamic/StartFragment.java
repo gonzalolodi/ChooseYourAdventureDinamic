@@ -41,17 +41,9 @@ public class StartFragment extends Fragment {
                                             public void onClick(View v) {
                                                 Random random= new Random();
                                                 int future= random.nextInt(2);
-                                                switch (future){
-                                                    case 0:
-                                                        Intent alley= new Intent(getActivity(),MainActivity.class);
-                                                        alley.putExtra(MainActivity.FUTURE_TAG,MainActivity.ALLEY);
-                                                        startActivity(alley);
-                                                        break;
-                                                    case 1:
-                                                        Intent room= new Intent(getActivity(),MainActivity.class);
-                                                        startActivity(room);
-                                                        break;
-                                                }
+                                                Intent futureDestination= new Intent(getActivity(),MainActivity.class);
+                                                futureDestination.putExtra(MainActivity.FUTURE_TAG,future);
+                                                startActivity(futureDestination);
 
                                             }
                                         }

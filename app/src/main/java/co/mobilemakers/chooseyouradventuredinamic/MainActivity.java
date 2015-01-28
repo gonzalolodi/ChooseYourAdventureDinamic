@@ -36,6 +36,8 @@ public class MainActivity extends ActionBarActivity {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().
                             add(R.id.frame_main, new AlleyFragment()).commit();
+                    break;
+
             }
         }
 
