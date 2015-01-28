@@ -17,5 +17,7 @@
     <string name="text_room">You have entered a room with two doors..</string>
     <string name="button_text_door1">Enter door 1</string>
     <string name="button_text_door2">Enter door 2</string>
+    <string name="text_view_final_winner">You\'ve reached the gold</string>
+    <string name="text_view_final_looser">You\'ve fallen into the pit of despair</string>
 
 </resources>

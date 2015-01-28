@@ -31,12 +31,26 @@ public class MainActivity extends ActionBarActivity {
                     add(R.id.frame_main, new StartFragment()).commit();
         }else{
             int future= getIntent().getIntExtra(FUTURE_TAG,0);
+            FragmentManager fragmentManager = getFragmentManager();
             switch (future){
                 case ALLEY:
-                    FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().
                             add(R.id.frame_main, new AlleyFragment()).commit();
                     break;
+                case ROOM:
+                    fragmentManager.beginTransaction().
+                            add(R.id.frame_main, new RoomFragment()).commit();
+                    break;
+                case WIN:
+                    fragmentManager.beginTransaction().
+                            add(R.id.frame_main, new WinnerFragment()).commit();
+                    break;
+                case LOST:
+                    fragmentManager.beginTransaction().
+                            add(R.id.frame_main, new LooserFragment()).commit();
+                    break;
+
+
 
             }
         }
