@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/pref_category">
+
+        <EditTextPreference
+            android:key="player_name_preference"
+            android:summary="@string/pref_player_name_summary"
+            android:title="@string/pref_player_name_title"
+            android:defaultValue="Brave Fighter"/>
+
+        <ListPreference
+            android:key="difficulty_preference"
+            android:summary="@string/pref_difficulty_summary"
+            android:title="@string/pref_difficulty"
+            android:entries="@array/difficulty_options"
+            android:entryValues="@array/difficulty_options"
+            android:defaultValue="Medium"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

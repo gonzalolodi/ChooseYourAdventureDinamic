@@ -1,16 +1,25 @@
 package co.mobilemakers.chooseyouradventuredinamic;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.Random;
-
 
 public class MainActivity extends ActionBarActivity {
     Button mButtonStart;
@@ -25,6 +34,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupActionBar();
+
         if (getIntent().getExtras()==null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().
@@ -69,17 +81,22 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
         }
+        return true;
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.action_bar_title);
+        actionBar.setIcon(R.drawable.ic_launcher);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 }
 
