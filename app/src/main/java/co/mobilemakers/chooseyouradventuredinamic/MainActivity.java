@@ -21,14 +21,19 @@ import android.widget.Button;
 
 import java.util.Random;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
     Button mButtonStart;
+    FragmentManager fragmentManager= getFragmentManager();
+    String difficulty;
 
     final static String FUTURE_TAG="future destination";
     final static int ALLEY=0;
     final static int ROOM=1;
     final static int WIN=2;
     final static int LOST=3;
+    final static String DIFFICULTY = "difficulty_preference";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +102,55 @@ public class MainActivity extends ActionBarActivity {
         actionBar.setTitle(R.string.action_bar_title);
         actionBar.setIcon(R.drawable.ic_launcher);
         actionBar.setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.button_start:
+                start();
+                break;
+            default:
+                getDifficultyPreference();
+
+                int winner;
+                int looser;
+
+                switch (difficulty) {
+                    case "Easy":
+                        winner = 3;
+                        looser = 8;
+                        break;
+                    case "Medium":
+                        winner = 2;
+                        looser = 7;
+                        break;
+                    default:
+                        winner = 1;
+                        looser = 6;
+                        break;
+                }
+
+                break;
+        }
+    }
+
+
+    private void getDifficultyPreference () {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            difficulty = sharedPreferences.getString(DIFFICULTY, "Medium");
+    }
+
+
+    private void start() {
+        if (new Random().nextInt(2)== 0){
+            fragmentManager.beginTransaction().
+                    replace(R.id.frame_main, new AlleyFragment()).addToBackStack(null).commit();
+        }else{
+            fragmentManager.beginTransaction().
+                    replace(R.id.frame_main, new RoomFragment()).addToBackStack(null).commit();
+        }
     }
 }
 
