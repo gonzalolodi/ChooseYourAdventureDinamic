@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     final static int WIN=2;
     final static int LOST=3;
     final static String DIFFICULTY = "difficulty_preference";
+    final static String PLAYER_NAME = "player_name_preference";
 
 
 
