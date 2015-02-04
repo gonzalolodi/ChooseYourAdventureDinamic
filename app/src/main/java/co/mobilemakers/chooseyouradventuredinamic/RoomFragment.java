@@ -3,7 +3,7 @@ package co.mobilemakers.chooseyouradventuredinamic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,28 +29,16 @@ public class RoomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_room, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_room, container, false);
+        prepareButtons(rootView);
+        return rootView;
     }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        prepareButtons();
-    }
-    private void prepareButtons() {
-        mButtonDoor1= (Button) getView().findViewById(R.id.button_door1);
-        mButtonDoor2= (Button) getView().findViewById(R.id.button_door2);
-        View.OnClickListener buttonsListener= new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Random random= new Random();
-                int future= random.nextInt(4);
-                Intent futureDestination= new Intent(getActivity(),MainActivity.class);
-                futureDestination.putExtra(MainActivity.FUTURE_TAG,future);
-                startActivity(futureDestination);
-            }
-        };
-        mButtonDoor1.setOnClickListener(buttonsListener);
-        mButtonDoor2.setOnClickListener(buttonsListener);
+
+    private void prepareButtons(View rootView) {
+        mButtonDoor1= (Button) rootView.findViewById(R.id.button_door1);
+        mButtonDoor2= (Button) rootView.findViewById(R.id.button_door2);
+        mButtonDoor1.setOnClickListener((View.OnClickListener)getActivity());
+        mButtonDoor2.setOnClickListener((View.OnClickListener)getActivity());
     }
 
 

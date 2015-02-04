@@ -2,7 +2,8 @@ package co.mobilemakers.chooseyouradventuredinamic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,29 +25,13 @@ public class StartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_start, container, false);
-        return inflater.inflate(R.layout.fragment_start, container, false);
+        prepareButton(rootView);
+        return rootView;
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        prepareButton();
-    }
-
-    private void prepareButton() {
-        mButtonStart= (Button) getView().findViewById(R.id.button_start);
-        mButtonStart.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Random random= new Random();
-                                                int future= random.nextInt(2);
-                                                Intent futureDestination= new Intent(getActivity(),MainActivity.class);
-                                                futureDestination.putExtra(MainActivity.FUTURE_TAG,future);
-                                                startActivity(futureDestination);
-
-                                            }
-                                        }
-        );
+    private void prepareButton(View rootView) {
+        mButtonStart= (Button) rootView.findViewById(R.id.button_start);
+        mButtonStart.setOnClickListener((View.OnClickListener)getActivity());
     }
 }

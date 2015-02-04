@@ -4,13 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -23,8 +23,9 @@ import java.util.Random;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
     Button mButtonStart;
-    FragmentManager fragmentManager= getFragmentManager();
+    FragmentManager fragmentManager= getSupportFragmentManager();
     String difficulty;
+    int winner,looser;
 
     final static String FUTURE_TAG="future destination";
     final static int ALLEY=0;
@@ -42,38 +43,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         setupActionBar();
 
-        if (getIntent().getExtras()==null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().
-                    add(R.id.frame_main, new StartFragment()).commit();
-        }else{
-            int future= getIntent().getIntExtra(FUTURE_TAG,0);
-            FragmentManager fragmentManager = getFragmentManager();
-            switch (future){
-                case ALLEY:
-                    fragmentManager.beginTransaction().
-                            add(R.id.frame_main, new AlleyFragment()).commit();
-                    break;
-                case ROOM:
-                    fragmentManager.beginTransaction().
-                            add(R.id.frame_main, new RoomFragment()).commit();
-                    break;
-                case WIN:
-                    fragmentManager.beginTransaction().
-                            add(R.id.frame_main, new WinnerFragment()).commit();
-                    break;
-                case LOST:
-                    fragmentManager.beginTransaction().
-                            add(R.id.frame_main, new LooserFragment()).commit();
-                    break;
+        init();
+    }
 
-
-
-            }
-        }
-
-
-
+    private void init() {
+        fragmentManager.beginTransaction().
+                replace(R.id.frame_main, new StartFragment()).addToBackStack(null).commit();
     }
 
 
@@ -114,24 +89,44 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             default:
                 getDifficultyPreference();
 
-                int winner;
-                int looser;
+                getOdds();
 
-                switch (difficulty) {
-                    case "Easy":
-                        winner = 3;
-                        looser = 8;
-                        break;
-                    case "Medium":
-                        winner = 2;
-                        looser = 7;
-                        break;
-                    default:
-                        winner = 1;
-                        looser = 6;
-                        break;
+                int future= new Random().nextInt(10);
+                if (future < winner){
+                    fragmentManager.beginTransaction().
+                            replace(R.id.frame_main, new WinnerFragment()).addToBackStack(null).commit();
+                }else{
+                    if (future > looser){
+                        fragmentManager.beginTransaction().
+                                replace(R.id.frame_main, new LooserFragment()).addToBackStack(null).commit();
+                    }else{
+                        if (new Random().nextInt(2)==0){
+                            fragmentManager.beginTransaction().
+                                    replace(R.id.frame_main, new AlleyFragment()).addToBackStack(null).commit();
+                        }else{
+                            fragmentManager.beginTransaction().
+                                    replace(R.id.frame_main, new RoomFragment()).addToBackStack(null).commit();
+                        }
+                    }
                 }
 
+                break;
+        }
+    }
+
+    private void getOdds() {
+        switch (difficulty) {
+            case "Easy":
+                winner = 3;
+                looser = 8;
+                break;
+            case "Medium":
+                winner = 2;
+                looser = 7;
+                break;
+            default:
+                winner = 1;
+                looser = 6;
                 break;
         }
     }
